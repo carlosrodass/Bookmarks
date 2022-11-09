@@ -4,9 +4,11 @@ var express = require("express"),
 
 var jwt = require('jsonwebtoken');
 var auth = require('../auth');
+require('dotenv').config();
 
 
-const userController = require("../controllers/user.controller");
+const userController = require("../../controllers/user.controller");
+const SECRET_KEY = process.env.SECRET_KEY;
 
 //User SignUp
 app.post("/signup", async (req, res) => {
@@ -14,7 +16,9 @@ app.post("/signup", async (req, res) => {
     try {
 
         var result = await userController.CreateUser(req.body);
-        res.json(result);
+        console.log(result);
+        if(result == false) res.json({Error: 'User already exist'});
+        
 
     } catch (error) {
 
@@ -46,7 +50,7 @@ app.post("/login", async (req, res) => {
         }
 
 
-        const token = jwt.sign({ exist }, 'secretkeycr', {
+        const token = jwt.sign({ exist }, SECRET_KEY, {
             expiresIn: '1h'
         });
 

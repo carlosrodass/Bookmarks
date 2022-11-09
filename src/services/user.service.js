@@ -9,6 +9,10 @@ class UserService {
 
     async CreateUser(user) {
         try {
+
+            var resultUser = await this.checkingUserEmail(user);
+            if (resultUser == false) return false;
+
             return await userRepository.CreateUser(user);
 
         } catch (error) {
@@ -22,18 +26,11 @@ class UserService {
     async Login(user) {
 
         try {
-            var isCreated = await userRepository.GetUserLogin(user);
 
-            if (isCreated.email == user.email) {
-                if (isCreated.password == user.password) {
+            var resultUser = await this.checkingUser(user);
+            if (resultUser == false) return false;
+            return resultUser;
 
-                    return isCreated;
-                }
-                return false;
-            }
-            console.log(isCreated, "IS");
-
-            return false;
 
         } catch (error) {
             console.log(error);
@@ -75,6 +72,41 @@ class UserService {
             throw new Error(error);
 
         }
+    }
+
+
+    async checkingUser(user) {
+
+        var isCreated = await userRepository.GetUserLogin(user);
+        console.log(isCreated);
+
+        if (isCreated != null || isCreated != 'undefined') {
+
+            if (isCreated.email == user.email) {
+                if (isCreated.password == user.password) {
+
+                    return isCreated;
+                }
+                return false;
+            }
+            console.log(isCreated, "IS");
+
+            return false;
+        }
+
+        return false;
+    }
+
+
+    async checkingUserEmail(user) {
+
+        var isCreated = await userRepository.GetUserLogin(user);
+
+        if (isCreated == 'undefined' || isCreated == null) {
+            return true;
+        }
+
+        return false;
     }
 
 }

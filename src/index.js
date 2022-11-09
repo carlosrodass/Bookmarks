@@ -1,11 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 require('dotenv').config();
-const jwt = require('jsonwebtoken');
 
 const app = express();
 const cors = require("cors");
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 
 //middlewares
 app.use(bodyParser.json());

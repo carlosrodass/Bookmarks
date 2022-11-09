@@ -3,6 +3,8 @@ var express = require("express"),
     app = express();
 
 var jwt = require('jsonwebtoken');
+require('dotenv').config();
+const SECRET_KEY = process.env.SECRET_KEY;
 
 
 const libraryController = require('../controllers/library.controller');
@@ -11,7 +13,7 @@ app.post('/Create', verifyTokenProvided, async (req, res) => {
 
     try {
 
-        jwt.verify(req.token, 'secretkeycr', (err, authdata) => {
+        jwt.verify(req.token, SECRET_KEY, (err, authdata) => {
             if (err)
                 res.sendStatus(403);
         });
@@ -27,7 +29,7 @@ app.get("/getallbyuser/:UserId", verifyTokenProvided, async (req, res) => {
 
     try {
 
-        jwt.verify(req.token, 'secretkeycr', (err, authdata) => {
+        jwt.verify(req.token, SECRET_KEY, (err, authdata) => {
             if (err)
                 res.sendStatus(403);
         });
@@ -46,7 +48,7 @@ app.get("/getbyid/:libraryId", verifyTokenProvided, async (req, res) => {
 
     try {
 
-        jwt.verify(req.token, 'secretkeycr', (err, authdata) => {
+        jwt.verify(req.token, SECRET_KEY, (err, authdata) => {
             if (err)
                 res.sendStatus(403);
         });
@@ -67,7 +69,7 @@ app.get("/getall/:user_id", verifyTokenProvided, async (req, res) => {
 
     try {
 
-        jwt.verify(req.token, 'secretkeycr', (err, authdata) => {
+        jwt.verify(req.token, SECRET_KEY, (err, authdata) => {
             if (err)
                 res.sendStatus(403);
         });

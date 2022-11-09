@@ -5,6 +5,9 @@ var express = require("express"),
 var jwt = require('jsonwebtoken');
 var auth = require('../auth');
 
+require('dotenv').config();
+const SECRET_KEY = process.env.SECRET_KEY;
+
 
 const userController = require("../controllers/user.controller");
 
@@ -14,7 +17,7 @@ app.get("/getbyid/:userId", verifyTokenProvided, async (req, res) => {
 
     try {
 
-        jwt.verify(req.token, 'secretkeycr', (err, authdata) => {
+        jwt.verify(req.token, SECRET_KEY, (err, authdata) => {
             if (err)
                 res.sendStatus(403);
         });

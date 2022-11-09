@@ -13,6 +13,8 @@ class userRepository {
 
             data = await pool.query(`SELECT * FROM users 
                                         WHERE users.email = $1`, [user.email]);
+
+            // console.log(data.rows[0]);
             return data.rows[0]
 
         } catch (error) {
@@ -27,6 +29,8 @@ class userRepository {
         try {
             data = await pool.query(`INSERT INTO "users"(name, email, password) 
                                         VALUES($1, $2, $3) `, [user.name, user.email, user.password]);
+
+            console.log(data);
         } catch (err) {
             throw new Error(err);
         }
