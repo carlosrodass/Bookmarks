@@ -39,17 +39,17 @@ class userRepository {
     }
 
 
-    async GetUsers() {
+    // async GetUsers() {
 
-        try {
+    //     try {
 
-            const users = await pool.query('SELECT * FROM users');
-            return users.rows;
-        } catch (err) {
-            console.log(err);
-            throw new Error(err);
-        }
-    }
+    //         const users = await pool.query('SELECT * FROM users');
+    //         return users.rows;
+    //     } catch (err) {
+    //         console.log(err);
+    //         throw new Error(err);
+    //     }
+    // }
 
     async GetById(userId) {
         let data = {};

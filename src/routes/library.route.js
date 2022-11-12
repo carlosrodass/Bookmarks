@@ -25,23 +25,23 @@ app.post('/Create', verifyTokenProvided, async (req, res) => {
         throw new Error(err)
     }
 })
-app.get("/getallbyuser/:UserId", verifyTokenProvided, async (req, res) => {
+// app.get("/getallbyuser/:UserId", verifyTokenProvided, async (req, res) => {
 
-    try {
+//     try {
 
-        jwt.verify(req.token, SECRET_KEY, (err, authdata) => {
-            if (err)
-                res.sendStatus(403);
-        });
+//         jwt.verify(req.token, SECRET_KEY, (err, authdata) => {
+//             if (err)
+//                 res.sendStatus(403);
+//         });
 
-        var result = await libraryController.GetAllByUserId(req.params.UserId);
-        res.json(result);
+//         var result = await libraryController.GetAll(req.params.UserId);
+//         res.json(result);
 
-    } catch (error) {
+//     } catch (error) {
 
-        throw new Error(error);
-    }
-})
+//         throw new Error(error);
+//     }
+// })
 
 
 app.get("/getbyid/:libraryId", verifyTokenProvided, async (req, res) => {

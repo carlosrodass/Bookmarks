@@ -22,7 +22,6 @@ class UserService {
         }
     }
 
-
     async Login(user) {
 
         try {
@@ -37,10 +36,6 @@ class UserService {
             throw new Error(error);
 
         }
-    }
-
-    async GetUsers() {
-        return await userRepository.GetUsers();
     }
 
     async GetById(userId) {
@@ -75,26 +70,32 @@ class UserService {
     }
 
 
+    // async GetUsers() {
+    //     return await userRepository.GetUsers();
+    // }
+
+
+
     async checkingUser(user) {
 
         var isCreated = await userRepository.GetUserLogin(user);
-        console.log(isCreated);
+        console.log(isCreated, "Iscreated");
 
-        if (isCreated != null || isCreated != 'undefined') {
+        if (!isCreated) return false;
 
-            if (isCreated.email == user.email) {
-                if (isCreated.password == user.password) {
+        if (isCreated.email == user.email) {
+            if (isCreated.password == user.password) {
 
-                    return isCreated;
-                }
-                return false;
+                return isCreated;
             }
-            console.log(isCreated, "IS");
-
             return false;
         }
+        console.log(isCreated, "IS");
 
         return false;
+
+
+
     }
 
 
